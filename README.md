@@ -29,7 +29,11 @@ The MongoDB database contains three tables:
 3. `scraped_data`: Stores the data scraped from the .onion sites.
 
 
-## the plan
+##ROugh plan
+okay so here is the plan: 
+
+i am going to build out a docker stack. 
+
 container 1: 
     - webapp where the user can go and add more links to the scrape table and be able to look at all the information from each individual table.
 
