@@ -5,7 +5,8 @@ This project is a Python-based web scraper for .onion sites on the darkweb. It u
 ## Setup
 
 1. Install Docker and Docker Compose on your machine.
-2. Build the Docker images and start the services: `docker-compose up --build`
+2. Tor installed on your machine. The scraper uses Tor to access .onion sites, so it's necessary to have Tor installed and correctly configured.
+3. Build the Docker images and start the services: `docker-compose up --build`
 
 ## Project Structure
 
