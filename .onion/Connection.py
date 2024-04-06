@@ -28,3 +28,7 @@ while True:
         c.signal(Signal.NEWNYM)
     #print the new ip address and user agent
        ## print(f"Your IP is : {requests.get('https://ident.me', proxies=proxies, headers=headers).text}  ||  User Agent is : {headers['User-Agent']}")
+    
+# get a random User-Agent header
+def get_user_agent():
+    return {'User-Agent': UserAgent().random}
