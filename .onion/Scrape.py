@@ -16,8 +16,6 @@ class Crawler():
     ----------
     initial_url : str
         the starting URL for the crawl
-    proxy_port : int, optional
-        the port number for the proxy server (default is None)
     max_depth : int, optional
         the maximum depth to crawl (default is 2)
     client : MongoClient
@@ -35,10 +33,9 @@ class Crawler():
         Scrapes the page at the URL and recursively crawls all links.
     """
 
-    def __init__(self, initial_url, proxy_port=None, max_depth=2, db_uri='mongodb://mongo:27017/', db_name='crawler'):
+    def __init__(self, initial_url,  max_depth=2, db_uri='mongodb://mongo:27017/', db_name='crawler'):
         """Initializes the Crawler with the given parameters and connects to MongoDB."""
         self.initial_url = initial_url
-        self.proxy_port = proxy_port
         self.max_depth = max_depth
         self.client = MongoClient(db_uri)
         self.db = self.client[db_name]
