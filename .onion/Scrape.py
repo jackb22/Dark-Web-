@@ -61,14 +61,23 @@ class Crawler():
 
     def scrape_page(self, url, current_depth=0):
         """Scrapes the page at the URL and recursively crawls all links."""
+        if current_depth > self.max_depth:
+            return
         html = self.urlopen(url)
         if html is None:
             return
-        parsed = BeautifulSoup(html, 'html.parser')
-        for tag in parsed.find_all("a", href=True):
-            href = tag["href"]
-            new_url = urljoin(url, href)
-            if self.crawled_urls.find_one({'url': new_url}) is None:
-                # If the URL hasn't been crawled before, insert it into the database and crawl it
-                self.crawled_urls.insert_one({'url': new_url})
-                self.scrape_page(new_url, current_depth + 1)
+        try:
+            parsed = BeautifulSoup(html, 'html.parser')
+            for tag in parsed.find_all("a", href=True):
+                href = tag["href"]
+                new_url = urljoin(url, href)
+                if self.crawled_urls.find_one({'url': new_url}) is None:
+                    # If the URL hasn't been crawled before, insert it into the database and crawl it
+                    self.crawled_urls.insert_one({'url': new_url})
+                    self.scrape_page(new_url, current_depth + 1)
+        except Exception as e:
+            logging.error(f"Failed to scrape {url}: {e}")
+
+    def __del__(self):
+        """Destructor to close the MongoDB connection when the Crawler is destroyed."""
+        self.client.close()
